@@ -6,27 +6,27 @@ Resposta: Microsserviços são pequenos serviços de software separados, cada um
 
 2. Cite uma vantagem da arquitetura de microsserviços.
 
-Resposta: Uma vantagem é permitir a evolução independente de partes do sistema. Por exemplo, o serviço de Pagamento pode ser atualizado sem precisar publicar novamente todo o sistema.
+Resposta: A capacidade de implantação independente melhora a escala e a robustez dos sistemas, além de permitir o uso de tecnologias heterogêneas e agnósticas. Ela também reduz o risco de atualizações e permite que as equipes de desenvolvimento trabalhem em paralelo de maneira mais eficiente, sem que os desenvolvedores interfiram diretamente no trabalho uns dos outros
 
 3. Cite uma desvantagem da arquitetura de microsserviços.
 
-Resposta: Uma desvantagem é o aumento da complexidade operacional. Como existem vários serviços separados, é necessário controlar comunicação, monitoramento, falhas de rede e implantação de cada serviço.
+Resposta: A comunicação via redes aumenta a latência do projeto, e acontecimentos como falhas parciais também impactam no aumento da complexidade operacional. Como existem vários serviços separados, é necessário controlar comunicação, monitoramento, falhas de rede e implantação de cada serviço.
 
 4. Cite uma característica dos microsserviços que os diferenciam de outras arquiteturas de software.
 
-Resposta: Uma característica importante é a implantação independente: cada microsserviço pode ter seu próprio ciclo de desenvolvimento e ser colocado em produção sem exigir a implantação dos demais.
+Resposta: Uma característica importante é a implantação independente, o encapsulamento estrito dos dados, cada microsserviço pode ter seu próprio ciclo de desenvolvimento e ser colocado em produção sem exigir a implantação dos demais.
 
 5. Explique de forma sucinta o que é um monólito.
 
-Resposta: Um monólito é uma aplicação em que várias funcionalidades do sistema ficam reunidas em uma única unidade de software. Normalmente, os módulos são construídos e implantados juntos, mesmo quando possuem responsabilidades diferentes.
+Resposta: Um monólito é um sistema de software estruturado e empacotado como uma única unidade de implantação, onde toda a sua funcionalidade precisa ser implantada em conjunto.
 
 6. Explique de forma sucinta o que significa Acoplamento do ponto de vista de Engenharia de Software.
 
-Resposta: Acoplamento é o nível de dependência entre partes do sistema. Quanto maior o acoplamento, maior a chance de uma alteração em um módulo exigir mudanças em outros módulos. Em geral, busca-se baixo acoplamento.
+Resposta: Acoplamento é o nível de dependência entre partes do sistema. Quanto maior o acoplamento, maior a chance de uma alteração em um módulo exigir mudanças em outros módulos.
 
 7. Explique de forma sucinta o que significa Coesão do ponto de vista de Engenharia de Software.
 
-Resposta: Coesão indica o quanto os elementos de um módulo estão relacionados à mesma responsabilidade. Um módulo com alta coesão reúne funções que pertencem ao mesmo objetivo e evita misturar regras sem relação entre si.
+Resposta: Coesão indica o quanto os elementos de um módulo estão relacionados no mesmo sistema. Uma arquitetura orientada ao domínio de negócios busca alta coesão funcional de negócio, seguindo a diretriz de que "o código que muda junto pelas mesmas regras de negócio deve permanecer junto".
 
 8. Explique de forma sucinta o que é um Agregado do DDD.
 
@@ -34,7 +34,7 @@ Resposta: Um Agregado é um conjunto de objetos do domínio que deve ser tratado
 
 9. Cite uma vantagem de construir microsserviços usando Agregados do DDD.
 
-Resposta: Os Agregados ajudam a definir limites claros para as regras de negócio. Isso facilita separar responsabilidades e criar microsserviços mais coesos, com menos dependência de dados e regras pertencentes a outros serviços.
+Resposta: Os agregados eliminam referências diretas de objetos através dos limites dos microsserviços (utilizando em vez disso referências baseadas exclusivamente em IDs/chaves primárias), o que garante que qualquer transação ACID fique isolada no banco de dados de um único serviço.
 
 10. Dê um exemplo de mapeamento de um Contexto Delimitado para um microserviço, utilizando a linguagem Java.
 
@@ -58,7 +58,6 @@ record Usuario(Long id, String nome) {}
 Resposta: Neste exemplo, Pagamento é a raiz do Agregado e Dinheiro é um Objeto de Valor. As regras do pagamento ficam concentradas nesse domínio, evitando que outros módulos alterem diretamente seu estado.
 
 package ecommerce.pagamento;
-
 import java.math.BigDecimal;
 
 // Objeto de Valor: representa um valor monetário.
@@ -91,7 +90,7 @@ public class Pagamento {
 
 12. Porque o compartilhamento de banco de dados é uma estratégia de integração ruim sob o ponto de vista de microsserviços?
 
-Resposta: Porque os serviços ficam dependentes do mesmo esquema de banco. Uma alteração em uma tabela pode quebrar vários serviços, além de permitir que um serviço acesse dados internos de outro. O ideal é cada microsserviço controlar seus próprios dados e expor apenas APIs ou eventos necessários.
+Resposta: O compartilhamento direto de banco de dados viola o princípio do acoplamento fraco e impede a implantação independente. Ele gera um tipo de acoplamento de implementação em que o serviço externo fica dependente do esquema físico das tabelas, tipos de dados e nomes de colunas do banco. Se o microsserviço proprietário das informações precisar mudar sua arquitetura interna de tabelas ou renomear colunas para atender a novos requisitos, ele quebrará as outras aplicações que leem ou gravam diretamente nele. Em vez de expor o armazenamento de dados, o serviço deve esconder sua persistência e usar o conceito de ocultação de informações, estabelecendo interfaces e contratos de APIs públicos e estáveis.
 
 Parte 2 - Estudo de Caso e Refatoração Prática
 
