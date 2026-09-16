@@ -1,5 +1,3 @@
-Claro — mantive o conteúdo e só corrigi a formatação em Markdown.
-
 # DR4_TP1
 
 ## 1. Explique de forma sucinta o que são microsserviços.
