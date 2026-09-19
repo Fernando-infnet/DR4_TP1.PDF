@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="600" viewBox="0 0 1100 600">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#334155"/>
+    </marker>
+    <style>
+      .box { fill:#f8fafc; stroke:#334155; stroke-width:2; rx:12; }
+      .domain { fill:#dbeafe; }
+      .broker { fill:#fef3c7; }
+      .consumer { fill:#dcfce7; }
+      .title { font:700 20px sans-serif; fill:#0f172a; }
+      .text { font:16px sans-serif; fill:#0f172a; }
+      .small { font:14px sans-serif; fill:#475569; }
+      .line { stroke:#334155; stroke-width:2; fill:none; marker-end:url(#arrow); }
+    </style>
+  </defs>
+  <text x="550" y="35" text-anchor="middle" class="title">Publicação de eventos — Pet Friends</text>
+
+  <rect x="35" y="220" width="180" height="95" class="box domain"/>
+  <text x="125" y="255" text-anchor="middle" class="title">Agendamento</text>
+  <text x="125" y="283" text-anchor="middle" class="small">Aggregate Root</text>
+
+  <rect x="280" y="120" width="200" height="90" class="box"/>
+  <text x="380" y="155" text-anchor="middle" class="title">Banco de dados</text>
+  <text x="380" y="183" text-anchor="middle" class="small">Agendamento + Outbox</text>
+
+  <rect x="280" y="325" width="200" height="90" class="box"/>
+  <text x="380" y="360" text-anchor="middle" class="title">Publicador</text>
+  <text x="380" y="388" text-anchor="middle" class="small">Lê eventos da Outbox</text>
+
+  <rect x="550" y="220" width="210" height="95" class="box broker"/>
+  <text x="655" y="255" text-anchor="middle" class="title">Tópico</text>
+  <text x="655" y="283" text-anchor="middle" class="small">agendamento.confirmado</text>
+
+  <rect x="845" y="75" width="210" height="80" class="box consumer"/>
+  <text x="950" y="108" text-anchor="middle" class="title">Notificações</text>
+  <text x="950" y="134" text-anchor="middle" class="small">Fila própria</text>
+
+  <rect x="845" y="225" width="210" height="80" class="box consumer"/>
+  <text x="950" y="258" text-anchor="middle" class="title">Pagamentos</text>
+  <text x="950" y="284" text-anchor="middle" class="small">Fila própria</text>
+
+  <rect x="845" y="375" width="210" height="80" class="box consumer"/>
+  <text x="950" y="408" text-anchor="middle" class="title">Profissionais</text>
+  <text x="950" y="434" text-anchor="middle" class="small">Fila própria</text>
+
+  <path d="M215 250 C245 250,245 165,280 165" class="line"/>
+  <text x="230" y="190" class="small">mesma transação</text>
+  <path d="M380 210 L380 325" class="line"/>
+  <path d="M480 370 C520 370,515 270,550 270" class="line"/>
+  <path d="M760 250 C805 250,800 115,845 115" class="line"/>
+  <path d="M760 267 L845 267" class="line"/>
+  <path d="M760 285 C805 285,800 415,845 415" class="line"/>
+
+  <text x="550" y="535" text-anchor="middle" class="small">Cada consumidor processa o evento de forma independente e idempotente.</text>
+</svg>
